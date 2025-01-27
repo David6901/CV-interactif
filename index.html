@@ -4,47 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casino CV - David Sok</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, black, red);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .button {
+            background-color: gold;
+            color: black;
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .button:hover {
+            background-color: darkgoldenrod;
+        }
+        .cv-section {
+            display: none;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px white;
+            width: 80%;
+            max-width: 600px;
+            font-size: 1.2rem;
+        }
+        .visible {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .exp { background: red; }
+        .form { background: black; }
+        .skills { background: red; }
+        .soft { background: black; }
+        .jackpot {
+            display: none;
+            font-size: 3rem;
+            font-weight: bold;
+            color: gold;
+            background: red;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px gold;
+            animation: flash 0.5s infinite alternate;
+        }
+        @keyframes flash {
+            from { opacity: 1; }
+            to { opacity: 0.5; }
+        }
+    </style>
 </head>
 <body>
-    <main>
-    <div class="container">
-        <h1>🎰 Bienvenue au Casino CV de David Sok 🎰</h1>
-        <button id="playButton">🎲 Jouer</button>
-        <div id="cvContent" class="hidden">
-            <div class="grid">
-                <div class="card red">
-                    <h2>♣️ Expériences</h2>
-                    <div class="sub-card black"> <h3>Contrôleur de gestion</h3> <p>Grand Casino de Lyon (2024-2025)</p> </div>
-                    <div class="sub-card black"> <h3>Apprenti comptable</h3> <p>Grand Casino de Lyon (2022-2024)</p> </div>
-                    <div class="sub-card black"> <h3>Préparateur de commandes</h3> <p>Veepee (2020-2022)</p> </div>
-                </div>
-                <div class="card black">
-                    <h2>♥️ Mes Formations</h2>
-                    <div class="sub-card red"> <h3>Bachelor Finance</h3> <p>INSEEC Lyon (2024-2025)</p> </div>
-                    <div class="sub-card red"> <h3>BTS Comptabilité/Gestion</h3> <p>CIEFA IGS Lyon 9 (2022-2024)</p> </div>
-                    <div class="sub-card red"> <h3>Licence Droit</h3> <p>Université Jean Moulin Lyon 3 (2019-2022)</p> </div>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="card black">
-                    <h2>♦️ Soft Skills</h2>
-                    <div class="sub-card red"> <p>Capacité d’analyse et synthèse</p> </div>
-                    <div class="sub-card red"> <p>Travail en équipe & Communication efficace</p> </div>
-                    <div class="sub-card red"> <p>Gestion du stress & Adaptabilité</p> </div>
-                    <div class="sub-card red"> <p>Prise de décision & Autonomie</p> </div>
-                </div>
-                <div class="card red">
-                    <h2>♣️ Hard Skills</h2>
-                    <div class="sub-card black"> <p>Analyse des coûts et rentabilité</p> </div>
-                    <div class="sub-card black"> <p>Reporting et Tableaux de bord</p> </div>
-                    <div class="sub-card black"> <p>Bureautique (Pack Office)</p> </div>
-                    <div class="sub-card black"> <p>Comptabilité (générale et analytique)</p> </div>
-                </div>
-            </div>
-        </div>
+
+    <h1>🎰 Bienvenue au Casino CV - David Sok 🎰</h1>
+
+    <button id="play-button" class="button">🎲 Jouer</button>
+
+    <div id="experience" class="cv-section exp">
+        <h2>♣️ Expériences</h2>
+        <p>Contrôleur de gestion - Grand Casino de Lyon (2024-2025)</p>
+        <p>Apprenti comptable - Grand Casino de Lyon (2022-2024)</p>
+        <p>Préparateur de commandes - Veepee (2020-2022)</p>
     </div>
-            <script src="script.js"></script>
-</main>
+
+    <div id="formation" class="cv-section form">
+        <h2>♥️ Mes Formations</h2>
+        <p>Bachelor Finance - INSEEC Lyon (2024-2025)</p>
+        <p>BTS Comptabilité/Gestion - CIEFA IGS Lyon 9 (2022-2024)</p>
+        <p>Licence Droit - Université Jean Moulin Lyon 3 (2019-2022)</p>
+    </div>
+
+    <div id="hard-skills" class="cv-section skills">
+        <h2>♣️ Hard Skills</h2>
+        <p>Analyse des coûts et rentabilité</p>
+        <p>Reporting et Tableaux de bord</p>
+        <p>Bureautique (Pack Office)</p>
+        <p>Comptabilité (générale et analytique)</p>
+    </div>
+
+    <div id="soft-skills" class="cv-section soft">
+        <h2>♦️ Soft Skills</h2>
+        <p>Capacité d’analyse et synthèse</p>
+        <p>Travail en équipe & Communication efficace</p>
+        <p>Gestion du stress & Adaptabilité</p>
+        <p>Prise de décision & Autonomie</p>
+    </div>
+
+    <div id="jackpot" class="jackpot">🎉 JACKPOT ! 🎉</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let step = 0;
+            const sections = document.querySelectorAll(".cv-section");
+            const playButton = document.getElementById("play-button");
+
+            playButton.addEventListener("click", function () {
+                if (step < sections.length) {
+                    sections[step].classList.add("visible");
+                    step++;
+                } else {
+                    showJackpot();
+                }
+            });
+
+            function showJackpot() {
+                const jackpot = document.getElementById("jackpot");
+                jackpot.style.display = "block";
+                setTimeout(() => { jackpot.style.display = "none"; }, 3000);
+            }
+        });
+    </script>
+
 </body>
 </html>
