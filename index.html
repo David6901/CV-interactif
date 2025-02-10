@@ -25,6 +25,10 @@
         .button:hover {
             background-color: darkgoldenrod;
         }
+        .button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
         .cv-section {
             display: none;
             margin: 20px auto;
@@ -62,11 +66,22 @@
             from { opacity: 1; }
             to { opacity: 0.5; }
         }
+        .credits {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .credits span {
+            margin: 0 5px;
+            font-size: 2rem;
+            color: gold;
+        }
     </style>
 </head>
 <body>
 
     <h1>🎰 Bienvenue au Casino CV - David Sok 🎰</h1>
+
+    <div class="credits">Crédits : <span id="credit-counter">🪙🪙🪙🪙🪙</span></div>
 
     <button id="play-button" class="button">🎲 Jouer</button>
 
@@ -105,17 +120,31 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let step = 0;
+            let credits = 5;
             const sections = document.querySelectorAll(".cv-section");
             const playButton = document.getElementById("play-button");
+            const creditCounter = document.getElementById("credit-counter");
 
             playButton.addEventListener("click", function () {
-                if (step < sections.length) {
-                    sections[step].classList.add("visible");
-                    step++;
-                } else {
-                    showJackpot();
+                if (credits > 0) {
+                    if (step < sections.length) {
+                        sections[step].classList.add("visible");
+                        step++;
+                    } else {
+                        showJackpot();
+                    }
+                    credits--;
+                    updateCredits();
                 }
             });
+
+            function updateCredits() {
+                let coins = "🪙".repeat(credits);
+                creditCounter.innerHTML = coins;
+                if (credits === 0) {
+                    playButton.disabled = true;
+                }
+            }
 
             function showJackpot() {
                 const jackpot = document.getElementById("jackpot");
