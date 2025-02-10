@@ -114,6 +114,20 @@
             <p>BTS Comptabilité/Gestion - CIEFA IGS Lyon 9 (2022-2024)</p>
             <p>Licence Droit - Université Jean Moulin Lyon 3 (2019-2022)</p>
         </div>
+        <div id="hard-skills" class="cv-section skills">
+            <h2>♣️ Mes Hard Skills</h2>
+            <p>Analyse des coûts et rentabilité</p>
+            <p>Reporting et Tableaux de bord</p>
+            <p>Bureautique (Pack Office)</p>
+            <p>Comptabilité (générale et analytique)</p>
+        </div>
+        <div id="soft-skills" class="cv-section soft">
+            <h2>♦️ Mes Soft Skills</h2>
+            <p>Capacité d’analyse et synthèse</p>
+            <p>Travail en équipe & Communication efficace</p>
+            <p>Gestion du stress & Adaptabilité</p>
+            <p>Prise de décision & Autonomie</p>
+        </div>
     </div>
     
     <div id="jackpot" class="jackpot">🎉 JACKPOT ! 🎉</div>
@@ -129,15 +143,6 @@
             const jackpot = document.getElementById("jackpot");
             const rewardContainer = document.getElementById("reward-container");
             
-            const rewards = [
-                "🏅 Élaboration et suivi des tableaux de bord et des processus internes",
-                "🏅 Élaboration et suivi du budget de l’entreprise",
-                "🏅 Mise en place de systèmes de pilotage et de contrôle opérationnels",
-                "🏅 Contribution à l'amélioration des systèmes d’information de gestion",
-                "🏅 Développement et gestion de la comptabilité analytique",
-                "🏅 Supervision du suivi du Business Plan et optimisation des performances"
-            ];
-            
             playButton.addEventListener("click", function () {
                 if (credits > 0) {
                     if (step < sections.length) {
@@ -152,7 +157,6 @@
                         jackpot.style.display = "block";
                         setTimeout(() => {
                             jackpot.style.display = "none";
-                            showRewards();
                         }, 2000);
                         step++;
                     }
@@ -166,19 +170,6 @@
                 if (credits === 0) {
                     playButton.disabled = true;
                 }
-            }
-            
-            function showRewards() {
-                rewardContainer.style.display = "block";
-                rewards.forEach((reward, index) => {
-                    setTimeout(() => {
-                        let card = document.createElement("div");
-                        card.classList.add("reward-card");
-                        card.innerHTML = reward;
-                        rewardContainer.appendChild(card);
-                        setTimeout(() => card.classList.add("visible"), 100);
-                    }, index * 1000);
-                });
             }
         });
     </script>
