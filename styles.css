@@ -1,58 +1,93 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let step = 0;
-    let credits = 5;
-    const sections = document.querySelectorAll(".cv-section");
-    const playButton = document.getElementById("play-button");
-    const creditCounter = document.getElementById("credit-counter");
-    const jackpot = document.getElementById("jackpot");
-    const cvContainer = document.getElementById("cv-sections");
-    const rewardContainer = document.getElementById("reward-container");
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, black, red);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
 
-    const rewards = [
-        "🏆 Élaboration et suivi des tableaux de bord et des processus internes → Utilisation avancée des outils bureautiques et logiciels financiers (Excel, ERP, logiciels de gestion comptable).",
-        "🏆 Élaboration et suivi du budget de l’entreprise → Élaboration et suivi des budgets (BTS CG/apprenti contrôleur de gestion).",
-        "🏆 Mise en place de systèmes de pilotage et de contrôle opérationnels → Capacité à travailler en équipe et à interagir avec différents services (apprenti contrôleur de gestion).",
-        "🏆 Contribution à l'amélioration des systèmes d’information de gestion → Connaissance des systèmes d’information de gestion (bachelor finance).",
-        "🏆 Développement et gestion de la comptabilité analytique → Maîtrise des principes de comptabilité générale et analytique (BTS CG/apprenti comptable).",
-        "🏆 Supervision du suivi du Business Plan et optimisation des performances → Force de proposition pour l’optimisation des performances."
-    ];
+.button {
+    background-color: gold;
+    color: black;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 30px;
+}
 
-    function updateCredits() {
-        creditCounter.innerHTML = "🪙".repeat(credits);
-        if (credits === 0) {
-            playButton.disabled = true;
-        }
-    }
+.button:hover {
+    background-color: darkgoldenrod;
+}
 
-    playButton.addEventListener("click", function () {
-        if (credits > 0) {
-            if (step < sections.length) {
-                sections[step].classList.add("visible");
-                step++;
-            } else if (step === sections.length) {
-                jackpot.style.display = "block";
-                setTimeout(() => {
-                    jackpot.style.display = "none";
-                    cvContainer.style.display = "none";
-                    showRewards();
-                }, 2000);
-                step++;
-            }
-            credits--;
-            updateCredits();
-        }
-    });
+.button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
 
-    function showRewards() {
-        rewardContainer.style.display = "block";
-        rewards.forEach((reward, index) => {
-            setTimeout(() => {
-                let card = document.createElement("div");
-                card.classList.add("reward-card");
-                card.innerHTML = reward;
-                rewardContainer.appendChild(card);
-                setTimeout(() => card.classList.add("visible"), 100);
-            }, index * 500);
-        });
-    }
-});
+.cv-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.cv-section {
+    display: none;
+    width: 80%;
+    max-width: 600px;
+    font-size: 1.2rem;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px white;
+    margin-bottom: 20px;
+}
+
+.visible {
+    display: block;
+}
+
+.jackpot {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6rem;
+    font-weight: bold;
+    color: gold;
+    background: red;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 30px gold;
+    animation: flash 0.5s infinite alternate;
+}
+
+.reward-container {
+    display: none;
+    margin-top: 20px;
+}
+
+.reward-card {
+    display: none;
+    background: linear-gradient(to right, gold, orange);
+    color: black;
+    font-size: 1.5rem;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px gold;
+    margin: 20px auto;
+    width: 60%;
+    text-align: left;
+    transform: scale(0.5);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.reward-card.visible {
+    display: block;
+    transform: scale(1);
+    opacity: 1;
+}
