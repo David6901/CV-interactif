@@ -97,6 +97,19 @@
             from { transform: translateY(-50px); opacity: 1; }
             to { transform: translateY(100vh); opacity: 0; }
         }
+        .card {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: black;
+            padding: 40px;
+            font-size: 2rem;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px black;
+        }
     </style>
 </head>
 <body>
@@ -138,6 +151,9 @@
         </div>
     </div>
 
+    <div id="jackpot" class="jackpot">🎉 JACKPOT ! 🎉</div>
+    <div id="final-card" class="card">📜 À définir...</div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let step = 0;
@@ -160,32 +176,18 @@
             });
             
             function updateCredits() {
-                let coins = "🪙".repeat(credits);
-                creditCounter.innerHTML = coins;
-                if (credits === 0) {
-                    playButton.disabled = true;
-                }
+                creditCounter.innerHTML = "🪙".repeat(credits);
+                if (credits === 0) playButton.disabled = true;
             }
 
             function showJackpot() {
-                const jackpot = document.createElement("div");
-                jackpot.classList.add("jackpot");
-                jackpot.innerHTML = "🎉 JACKPOT ! 🎉";
-                document.body.appendChild(jackpot);
-                
-                for (let i = 0; i < 20; i++) {
-                    let money = document.createElement("div");
-                    money.classList.add("money");
-                    money.innerHTML = "💵";
-                    money.style.left = Math.random() * 100 + "%";
-                    document.body.appendChild(money);
-                    setTimeout(() => { money.remove(); }, 3000);
-                }
-                setTimeout(() => { jackpot.remove(); }, 3000);
+                document.getElementById("jackpot").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("final-card").style.display = "block";
+                }, 3000);
             }
         });
     </script>
-
 </body>
 </html>
 
