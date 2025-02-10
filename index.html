@@ -59,6 +59,10 @@
         .soft { background: black; }
         .jackpot {
             display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: 3rem;
             font-weight: bold;
             color: gold;
@@ -68,9 +72,30 @@
             box-shadow: 0px 0px 15px gold;
             animation: flash 0.5s infinite alternate;
         }
+        .credits {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .credits span {
+            margin: 0 5px;
+            font-size: 2rem;
+            color: gold;
+        }
         @keyframes flash {
             from { opacity: 1; }
             to { opacity: 0.5; }
+        }
+        .money {
+            position: fixed;
+            top: -50px;
+            left: 50%;
+            font-size: 2rem;
+            color: greenyellow;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-50px); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
         }
     </style>
 </head>
@@ -78,6 +103,7 @@
 
     <h1>🎰 Bienvenue au Casino CV - David Sok 🎰</h1>
 
+    <div class="credits">Crédits : <span id="credit-counter">🪙🪙🪙🪙🪙</span></div>
     <button id="play-button" class="button">🎲 Jouer</button>
     
     <div class="cv-container">
@@ -115,27 +141,46 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let step = 0;
+            let credits = 5;
             const sections = document.querySelectorAll(".cv-section");
             const playButton = document.getElementById("play-button");
+            const creditCounter = document.getElementById("credit-counter");
             
             playButton.addEventListener("click", function () {
-                if (step < sections.length) {
-                    sections.forEach((section, index) => {
-                        if (index <= step) {
-                            section.classList.add("visible");
-                        }
-                    });
-                    step++;
-                } else {
-                    showJackpot();
+                if (credits > 0) {
+                    if (step < sections.length) {
+                        sections[step].classList.add("visible");
+                        step++;
+                    } else {
+                        showJackpot();
+                    }
+                    credits--;
+                    updateCredits();
                 }
             });
             
+            function updateCredits() {
+                let coins = "🪙".repeat(credits);
+                creditCounter.innerHTML = coins;
+                if (credits === 0) {
+                    playButton.disabled = true;
+                }
+            }
+
             function showJackpot() {
                 const jackpot = document.createElement("div");
                 jackpot.classList.add("jackpot");
                 jackpot.innerHTML = "🎉 JACKPOT ! 🎉";
                 document.body.appendChild(jackpot);
+                
+                for (let i = 0; i < 20; i++) {
+                    let money = document.createElement("div");
+                    money.classList.add("money");
+                    money.innerHTML = "💵";
+                    money.style.left = Math.random() * 100 + "%";
+                    document.body.appendChild(money);
+                    setTimeout(() => { money.remove(); }, 3000);
+                }
                 setTimeout(() => { jackpot.remove(); }, 3000);
             }
         });
