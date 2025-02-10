@@ -53,10 +53,6 @@
             from { opacity: 0; transform: translateY(-50px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .exp { background: red; }
-        .form { background: black; }
-        .skills { background: red; }
-        .soft { background: black; }
         .jackpot {
             display: none;
             position: fixed;
@@ -72,43 +68,29 @@
             box-shadow: 0px 0px 20px gold;
             animation: flash 0.5s infinite alternate;
         }
-        .credits {
+        .reward-card {
+            display: none;
+            background: linear-gradient(to right, gold, orange);
+            color: black;
             font-size: 1.5rem;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px gold;
+            margin: 20px auto;
+            width: 60%;
+            text-align: left;
+            transform: scale(0.5);
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
         }
-        .credits span {
-            margin: 0 5px;
-            font-size: 2rem;
-            color: gold;
+        .reward-card.visible {
+            display: block;
+            transform: scale(1);
+            opacity: 1;
         }
         @keyframes flash {
             from { opacity: 1; }
             to { opacity: 0.5; }
-        }
-        .money {
-            position: fixed;
-            top: -50px;
-            left: 50%;
-            font-size: 3rem;
-            color: greenyellow;
-            animation: fall 3s linear infinite;
-        }
-        @keyframes fall {
-            from { transform: translateY(-50px); opacity: 1; }
-            to { transform: translateY(100vh); opacity: 0; }
-        }
-        .card {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            color: black;
-            padding: 50px;
-            font-size: 3rem;
-            border-radius: 15px;
-            box-shadow: 0px 0px 20px black;
         }
     </style>
 </head>
@@ -116,7 +98,6 @@
 
     <h1>🎰 Bienvenue au Casino CV - David Sok 🎰</h1>
 
-    <div class="credits">Crédits : <span id="credit-counter">🪙🪙🪙🪙🪙</span></div>
     <button id="play-button" class="button">🎲 Jouer</button>
     
     <div class="cv-container">
@@ -133,58 +114,46 @@
             <p>BTS Comptabilité/Gestion - CIEFA IGS Lyon 9 (2022-2024)</p>
             <p>Licence Droit - Université Jean Moulin Lyon 3 (2019-2022)</p>
         </div>
-
-        <div id="hard-skills" class="cv-section skills">
-            <h2>♣️ Mes Hard Skills</h2>
-            <p>Analyse des coûts et rentabilité</p>
-            <p>Reporting et Tableaux de bord</p>
-            <p>Bureautique (Pack Office)</p>
-            <p>Comptabilité (générale et analytique)</p>
-        </div>
-
-        <div id="soft-skills" class="cv-section soft">
-            <h2>♦️ Mes Soft Skills</h2>
-            <p>Capacité d’analyse et synthèse</p>
-            <p>Travail en équipe & Communication efficace</p>
-            <p>Gestion du stress & Adaptabilité</p>
-            <p>Prise de décision & Autonomie</p>
-        </div>
     </div>
-
+    
     <div id="jackpot" class="jackpot">🎉 JACKPOT ! 🎉</div>
-    <div id="final-card" class="card">📜 À définir...</div>
+    
+    <div id="reward-container"></div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let step = 0;
-            let credits = 5;
-            const sections = document.querySelectorAll(".cv-section");
             const playButton = document.getElementById("play-button");
-            const creditCounter = document.getElementById("credit-counter");
+            const jackpot = document.getElementById("jackpot");
+            const rewardContainer = document.getElementById("reward-container");
+            
+            const rewards = [
+                "🏅 Élaboration et suivi TB<br>📌 Expérience : Apprenti CG<br>✅ Maîtrise comptabilité G&A<br>✅ Analyse des indicateurs",
+                "🏅 Suivi Budget & Prévisions<br>📌 Expérience : Apprenti CG<br>✅ Rigueur & Esprit analytique",
+                "🏅 Pilotage & Contrôle<br>📌 Expérience : Apprenti CG<br>✅ Connaissance ERP",
+                "🏅 Contribution aux Systèmes d’Information<br>📌 Expérience : Apprenti CG<br>✅ Autonomie & Organisation",
+                "🏅 Développement de la Comptabilité Analytique<br>📌 Expérience : Apprenti Comptable<br>✅ Gestion des budgets",
+                "🏅 Supervision & Optimisation du Business Plan<br>📌 Expérience : Apprenti CG<br>✅ Esprit analytique & travail d'équipe"
+            ];
             
             playButton.addEventListener("click", function () {
-                if (credits > 0) {
-                    if (step < sections.length) {
-                        sections[step].classList.add("visible");
-                        step++;
-                    } else {
-                        showJackpot();
-                    }
-                    credits--;
-                    updateCredits();
+                if (step === 0) {
+                    jackpot.style.display = "block";
+                    setTimeout(() => showRewards(), 3000);
                 }
+                step++;
             });
             
-            function updateCredits() {
-                creditCounter.innerHTML = "🪙".repeat(credits);
-                if (credits === 0) playButton.disabled = true;
-            }
-
-            function showJackpot() {
-                document.getElementById("jackpot").style.display = "block";
-                setTimeout(() => {
-                    document.getElementById("final-card").style.display = "block";
-                }, 3000);
+            function showRewards() {
+                rewards.forEach((reward, index) => {
+                    setTimeout(() => {
+                        let card = document.createElement("div");
+                        card.classList.add("reward-card");
+                        card.innerHTML = reward;
+                        rewardContainer.appendChild(card);
+                        setTimeout(() => card.classList.add("visible"), 100);
+                    }, index * 1000);
+                });
             }
         });
     </script>
