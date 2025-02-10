@@ -31,7 +31,7 @@
         }
         .cv-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
             align-items: center;
             overflow: hidden;
         }
@@ -59,13 +59,13 @@
             top: 10%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: bold;
             color: gold;
             background: red;
-            padding: 40px;
+            padding: 50px;
             border-radius: 20px;
-            box-shadow: 0px 0px 20px gold;
+            box-shadow: 0px 0px 30px gold;
             animation: flash 0.5s infinite alternate;
         }
         .reward-card {
@@ -101,20 +101,13 @@
     <button id="play-button" class="button">🎲 Jouer</button>
     
     <div class="cv-container">
-        <div id="experience" class="cv-section exp">
-            <h2>♣️ Mes Expériences</h2>
-            <p>Contrôleur de gestion - Grand Casino de Lyon (2024-2025)</p>
-            <p>Apprenti comptable - Grand Casino de Lyon (2022-2024)</p>
-            <p>Préparateur de commandes - Veepee (2020-2022)</p>
+        <div id="soft-skills" class="cv-section soft">
+            <h2>♦️ Mes Soft Skills</h2>
+            <p>Capacité d’analyse et synthèse</p>
+            <p>Travail en équipe & Communication efficace</p>
+            <p>Gestion du stress & Adaptabilité</p>
+            <p>Prise de décision & Autonomie</p>
         </div>
-
-        <div id="formation" class="cv-section form">
-            <h2>♥️ Mes Formations</h2>
-            <p>Bachelor Finance - INSEEC Lyon (2024-2025)</p>
-            <p>BTS Comptabilité/Gestion - CIEFA IGS Lyon 9 (2022-2024)</p>
-            <p>Licence Droit - Université Jean Moulin Lyon 3 (2019-2022)</p>
-        </div>
-        
         <div id="hard-skills" class="cv-section skills">
             <h2>♣️ Mes Hard Skills</h2>
             <p>Analyse des coûts et rentabilité</p>
@@ -122,13 +115,17 @@
             <p>Bureautique (Pack Office)</p>
             <p>Comptabilité (générale et analytique)</p>
         </div>
-        
-        <div id="soft-skills" class="cv-section soft">
-            <h2>♦️ Mes Soft Skills</h2>
-            <p>Capacité d’analyse et synthèse</p>
-            <p>Travail en équipe & Communication efficace</p>
-            <p>Gestion du stress & Adaptabilité</p>
-            <p>Prise de décision & Autonomie</p>
+        <div id="formation" class="cv-section form">
+            <h2>♥️ Mes Formations</h2>
+            <p>Bachelor Finance - INSEEC Lyon (2024-2025)</p>
+            <p>BTS Comptabilité/Gestion - CIEFA IGS Lyon 9 (2022-2024)</p>
+            <p>Licence Droit - Université Jean Moulin Lyon 3 (2019-2022)</p>
+        </div>
+        <div id="experience" class="cv-section exp">
+            <h2>♣️ Mes Expériences</h2>
+            <p>Contrôleur de gestion - Grand Casino de Lyon (2024-2025)</p>
+            <p>Apprenti comptable - Grand Casino de Lyon (2022-2024)</p>
+            <p>Préparateur de commandes - Veepee (2020-2022)</p>
         </div>
     </div>
     
@@ -156,7 +153,10 @@
                     step++;
                 } else if (step === sections.length) {
                     jackpot.style.display = "block";
-                    setTimeout(() => showRewards(), 3000);
+                    setTimeout(() => {
+                        jackpot.style.display = "none";
+                        showRewards();
+                    }, 3000);
                     step++;
                 }
             });
