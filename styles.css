@@ -1,92 +1,58 @@
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, black, #8b0000);
-    color: white;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    let step = 0;
+    let credits = 5;
+    const sections = document.querySelectorAll(".cv-section");
+    const playButton = document.getElementById("play-button");
+    const creditCounter = document.getElementById("credit-counter");
+    const jackpot = document.getElementById("jackpot");
+    const cvContainer = document.getElementById("cv-sections");
+    const rewardContainer = document.getElementById("reward-container");
 
-.container {
-    max-width: 800px;
-    margin: auto;
-}
+    const rewards = [
+        "🏆 Élaboration et suivi des tableaux de bord et des processus internes → Utilisation avancée des outils bureautiques et logiciels financiers (Excel, ERP, logiciels de gestion comptable).",
+        "🏆 Élaboration et suivi du budget de l’entreprise → Élaboration et suivi des budgets (BTS CG/apprenti contrôleur de gestion).",
+        "🏆 Mise en place de systèmes de pilotage et de contrôle opérationnels → Capacité à travailler en équipe et à interagir avec différents services (apprenti contrôleur de gestion).",
+        "🏆 Contribution à l'amélioration des systèmes d’information de gestion → Connaissance des systèmes d’information de gestion (bachelor finance).",
+        "🏆 Développement et gestion de la comptabilité analytique → Maîtrise des principes de comptabilité générale et analytique (BTS CG/apprenti comptable).",
+        "🏆 Supervision du suivi du Business Plan et optimisation des performances → Force de proposition pour l’optimisation des performances."
+    ];
 
-button {
-    background-color: gold;
-    color: black;
-    font-size: 18px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: transform 0.2s;
-}
-
-button:hover {
-    transform: scale(1.1);
-}
-
-.hidden {
-    display: none;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-@media (min-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr 1fr;
+    function updateCredits() {
+        creditCounter.innerHTML = "🪙".repeat(credits);
+        if (credits === 0) {
+            playButton.disabled = true;
+        }
     }
-}
 
-.card {
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    text-align: center;
-}
+    playButton.addEventListener("click", function () {
+        if (credits > 0) {
+            if (step < sections.length) {
+                sections[step].classList.add("visible");
+                step++;
+            } else if (step === sections.length) {
+                jackpot.style.display = "block";
+                setTimeout(() => {
+                    jackpot.style.display = "none";
+                    cvContainer.style.display = "none";
+                    showRewards();
+                }, 2000);
+                step++;
+            }
+            credits--;
+            updateCredits();
+        }
+    });
 
-.red {
-    background-color: #8b0000;
-}
-
-.black {
-    background-color: black;
-}
-
-.sub-card {
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.sub-card p {
-    margin: 0;
-    font-size: 16px;
-}
-.jackpot {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    font-weight: bold;
-    color: gold;
-    background: red;
-    padding: 20px 40px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px gold;
-    animation: flash 0.5s infinite alternate;
-}
-
-@keyframes flash {
-    from { opacity: 1; }
-    to { opacity: 0.5; }
-}
+    function showRewards() {
+        rewardContainer.style.display = "block";
+        rewards.forEach((reward, index) => {
+            setTimeout(() => {
+                let card = document.createElement("div");
+                card.classList.add("reward-card");
+                card.innerHTML = reward;
+                rewardContainer.appendChild(card);
+                setTimeout(() => card.classList.add("visible"), 100);
+            }, index * 500);
+        });
+    }
+});
